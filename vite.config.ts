@@ -114,14 +114,15 @@ export default defineConfig({
     target: 'esnext',
     rollupOptions: {
       output: {
-        manualChunks: {
-          vendor: ['vue', 'vue-router', '@vueuse/core'],
-          ui: ['naive-ui'],
-          crypto: ['crypto-js', 'bcryptjs', 'node-forge'],
-          utils: ['lodash-es', 'date-fns']
+        manualChunks(id) {
+          if (id.includes('node_modules')) {
+            return 'vendor';
+          }
+          if (id.includes('/tools/')) {
+            return 'tools';
+          }
         }
       }
-    },
-    chunkSizeWarningLimit: 1000
+    }
   },
 });
