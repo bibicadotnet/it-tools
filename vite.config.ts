@@ -112,20 +112,5 @@ export default defineConfig({
   },
   build: {
     target: 'esnext',
-    rollupOptions: {
-      output: {
-        manualChunks(id) {
-          if (id.includes('node_modules')) {
-            if (id.includes('vue')) return 'vue-vendor';
-            if (id.includes('naive-ui')) return 'ui-vendor';
-            if (id.includes('crypto')) return 'crypto-vendor';
-            return 'vendor';
-          }
-          if (id.includes('/tools/')) {
-            return 'tools';
-          }
-        }
-      }
-    }
   },
 });
